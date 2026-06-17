@@ -1,0 +1,347 @@
+/* ============================================================
+   Oregon Heals · main.css
+   Brand tokens · base styles · components for both pages
+   ============================================================ */
+
+/* === Brand tokens === */
+:root {
+  --color-coral:        #CB5427;
+  --color-teal:         #4F7170;
+  --color-green-dark:   #435F4A;
+  --color-green-darker: #2f4036;
+  --color-green-light:  #CBDBC0;
+  --color-cream:        #FCFBF7;
+  --color-text:         #2a3a30;
+  --color-text-muted:   #4a584f;
+  --color-text-faint:   #7a8580;
+  --color-border:       rgba(67, 95, 74, 0.12);
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+
+  --shadow-soft: 0 2px 12px rgba(67, 95, 74, 0.06);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+}
+
+/* === Reset & base === */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--color-cream);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+img, svg { display: block; max-width: 100%; height: auto; }
+a { color: var(--color-coral); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--color-green-dark); letter-spacing: -0.01em; margin: 0; line-height: 1.1; }
+
+/* Skip link for keyboard users */
+.skip-link {
+  position: absolute; top: -100px; left: 0;
+  background: var(--color-green-dark); color: var(--color-cream);
+  padding: 12px 18px; z-index: 100; text-decoration: none;
+  border-radius: 0 0 var(--radius-md) 0;
+}
+.skip-link:focus { top: 0; }
+
+/* Focus states */
+*:focus-visible {
+  outline: 2px solid var(--color-coral);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* === Container === */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.container-narrow { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+/* === Nav === */
+.site-nav {
+  background: var(--color-cream);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky; top: 0; z-index: 50;
+}
+.site-nav-inner {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 24px;
+  max-width: 1200px; margin: 0 auto;
+}
+.site-nav-wordmark {
+  font-family: var(--font-display); font-weight: 600; font-size: 17px;
+  color: var(--color-green-dark); text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.site-nav-wordmark:hover { text-decoration: none; color: var(--color-coral); }
+.site-nav-links { display: flex; gap: 28px; font-size: 14px; font-weight: 500; }
+.site-nav-links a { color: var(--color-teal); text-decoration: none; }
+.site-nav-links a:hover { color: var(--color-green-dark); }
+.site-nav-links a.is-active { color: var(--color-coral); font-weight: 700; }
+.site-nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; color: var(--color-green-dark); }
+
+@media (max-width: 680px) {
+  .site-nav-links { display: none; flex-direction: column; gap: 12px; position: absolute; top: 100%; left: 0; right: 0; background: var(--color-cream); padding: 16px 24px; border-bottom: 1px solid var(--color-border); }
+  .site-nav-links.is-open { display: flex; }
+  .site-nav-toggle { display: block; }
+}
+
+/* === Hero (shared base) === */
+.hero {
+  position: relative; overflow: hidden;
+  padding: 56px 24px 56px;
+  text-align: center;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+.hero-blob { position: absolute; pointer-events: none; }
+.hero-blob.coral { bottom: -60px; right: -70px; width: 220px; height: 220px; opacity: 0.55; }
+.hero-blob.teal { top: -40px; left: -50px; width: 170px; height: 170px; opacity: 0.18; }
+.hero-blob.light { top: -50px; left: -60px; width: 240px; height: 240px; opacity: 0.6; }
+
+.hero-eyebrow {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--color-coral);
+  margin: 0 0 14px;
+}
+.hero-title { font-size: clamp(36px, 6vw, 52px); margin: 0 0 16px; }
+.hero-title em { color: var(--color-coral); font-style: normal; }
+.hero-tagline {
+  font-family: var(--font-display); font-style: italic; font-weight: 500;
+  font-size: clamp(17px, 2.2vw, 20px);
+  color: var(--color-teal);
+  margin: 0 0 28px;
+}
+.hero-lede {
+  max-width: 560px; margin: 0 auto;
+  font-size: clamp(15px, 1.8vw, 17px); line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+/* === Meta pill === */
+.meta-pill {
+  display: inline-flex; flex-wrap: wrap; gap: 8px 24px; justify-content: center;
+  background: var(--color-green-dark); color: var(--color-cream);
+  padding: 12px 24px; border-radius: var(--radius-pill);
+  font-size: 14px; font-weight: 500;
+  margin: 0 0 32px;
+}
+.meta-pill span { display: inline-flex; align-items: center; gap: 8px; }
+.meta-pill svg { flex-shrink: 0; }
+
+/* === Forms === */
+.form {
+  max-width: 400px; margin: 32px auto 0;
+}
+.form-label {
+  display: block;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--color-teal); text-align: center;
+  margin: 0 0 12px;
+}
+.form-stack { display: flex; flex-direction: column; gap: 10px; }
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid var(--color-green-light);
+  border-radius: var(--radius-md);
+  font-family: var(--font-body); font-size: 15px;
+  background: white; color: var(--color-green-dark);
+  text-align: center;
+  transition: border-color 0.15s ease;
+}
+.form-input:focus { border-color: var(--color-coral); outline: none; }
+.form-button {
+  background: var(--color-coral); color: white;
+  border: none; padding: 14px 24px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body); font-weight: 700; font-size: 14px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+.form-button:hover { background: #a8421d; }
+.form-note {
+  font-size: 12px; color: var(--color-text-faint);
+  margin: 14px 0 0; text-align: center; font-style: italic;
+}
+.form-success {
+  background: var(--color-green-light);
+  color: var(--color-green-darker);
+  padding: 16px 20px; border-radius: var(--radius-md);
+  text-align: center; font-weight: 500;
+  display: none;
+}
+.form-success.is-shown { display: block; }
+
+/* === Section pattern === */
+.section { padding: 64px 24px; }
+.section-inner { max-width: 680px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--color-coral); text-align: center;
+  margin: 0 0 12px;
+}
+.section h2 {
+  font-size: clamp(26px, 4vw, 34px);
+  text-align: center;
+  margin: 0 0 24px;
+}
+.section p { font-size: 16px; line-height: 1.75; margin: 0 0 18px; }
+.section p strong { color: var(--color-coral); font-weight: 700; }
+
+.section--green { background: var(--color-green-light); }
+.section--green p { color: var(--color-green-darker); }
+.section--dark { background: var(--color-green-dark); color: var(--color-cream); }
+.section--dark h2 { color: var(--color-cream); }
+.section--dark p { color: var(--color-green-light); }
+
+.section--green .quote {
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(18px, 2.5vw, 22px); line-height: 1.5;
+  text-align: center; max-width: 600px; margin: 0 auto;
+  color: var(--color-green-darker);
+}
+
+/* === Summit CTA banner (used on root page) === */
+.summit-banner {
+  background: var(--color-green-dark);
+  padding: 40px 24px;
+}
+.summit-banner-inner {
+  max-width: 880px; margin: 0 auto;
+  display: flex; gap: 28px; align-items: center; flex-wrap: wrap;
+  justify-content: center;
+}
+.summit-banner-logo { flex-shrink: 0; }
+.summit-banner-logo img { width: 180px; height: auto; }
+.summit-banner-text { flex: 1; min-width: 240px; color: var(--color-cream); }
+.summit-banner-eyebrow {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--color-green-light); margin: 0 0 6px;
+}
+.summit-banner-meta {
+  font-size: 14px; color: var(--color-green-light); margin: 6px 0 0;
+}
+.summit-banner-btn {
+  display: inline-block;
+  background: var(--color-coral); color: var(--color-cream);
+  padding: 14px 24px; border-radius: var(--radius-md);
+  font-weight: 700; font-size: 14px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; white-space: nowrap;
+  transition: background-color 0.15s ease;
+}
+.summit-banner-btn:hover { background: #a8421d; text-decoration: none; }
+
+/* === Members grid (root page) === */
+.members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 880px; margin: 32px auto 0;
+}
+.member-card {
+  padding: 28px 22px;
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+.member-card h3 {
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+.member-card p {
+  font-size: 14px; line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* === Presented-by (summit page) === */
+.presented {
+  padding: 40px 24px;
+  background: var(--color-cream);
+  text-align: center;
+  border-top: 1px solid var(--color-border);
+}
+.presented-label {
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--color-teal); margin: 0 0 20px;
+}
+.partners {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+}
+.partner-pill {
+  padding: 10px 18px; background: white;
+  border: 1px solid var(--color-green-light);
+  border-radius: var(--radius-md);
+  font-family: var(--font-display); font-weight: 500;
+  font-size: 14px; color: var(--color-green-dark);
+}
+
+/* === Footer === */
+.site-footer {
+  background: var(--color-green-darker);
+  color: var(--color-green-light);
+  padding: 32px 24px;
+  font-size: 13px;
+}
+.site-footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  flex-wrap: wrap;
+}
+.site-footer a { color: var(--color-green-light); opacity: 0.85; text-decoration: none; }
+.site-footer a:hover { opacity: 1; text-decoration: underline; }
+
+/* === Summit hero logo === */
+.summit-hero-logo {
+  width: clamp(160px, 25vw, 200px);
+  margin: 0 auto 20px;
+  height: auto;
+}
+
+/* === Coalition hero logo === */
+.coalition-hero-logo {
+  width: clamp(280px, 45vw, 460px);
+  margin: 0 auto 32px;
+  height: auto;
+}
+
+/* === Coalition hero copy === */
+.coalition-headline {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(24px, 3.6vw, 32px);
+  line-height: 1.25;
+  color: var(--color-green-dark);
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+
+/* === Reduced motion === */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

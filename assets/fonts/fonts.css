@@ -1,0 +1,80 @@
+/* Oregon Heals Coalition · Web Fonts
+ * ----------------------------------
+ * Brandon Grotesque (HVD Fonts) - body, UI, buttons
+ * New Kansas (Pangram Pangram) - display, headings, tagline accents
+ *
+ * Files are Latin-subset .woff. For production deployment, regenerate as
+ * .woff2 for ~30% smaller file sizes — see the README.
+ *
+ * Place files in /fonts/ relative to this stylesheet and include with:
+ *   <link rel="stylesheet" href="/fonts/fonts.css">
+ */
+
+/* === Brandon Grotesque === */
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('brandon-grotesque-regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('brandon-grotesque-medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Brandon Grotesque';
+  src: url('brandon-grotesque-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* === New Kansas === */
+
+@font-face {
+  font-family: 'New Kansas';
+  src: url('new-kansas-medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'New Kansas';
+  src: url('new-kansas-medium-italic.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'New Kansas';
+  src: url('new-kansas-bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* === Brand defaults === */
+
+:root {
+  --font-display: 'New Kansas', Georgia, serif;
+  --font-body: 'Brandon Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  font-weight: 400;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 700;
+}

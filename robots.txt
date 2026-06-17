@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://oregonheals.org/sitemap.xml
