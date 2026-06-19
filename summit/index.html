@@ -95,7 +95,17 @@
       <div class="section-inner">
         <p class="section-eyebrow">Tickets</p>
         <h2 id="tickets-title">Join us at the summit</h2>
-        <p style="text-align: center; margin-bottom: 32px;">All tickets include access to the full day of programming, continental breakfast, and a boxed lunch.</p>
+        <p style="text-align: center; margin-bottom: 24px;">All tickets include access to the full day of programming, continental breakfast, and a boxed lunch.</p>
+
+        <!-- Urgency badge — auto-updates based on the current date.
+             Shows the next price-change deadline, with a countdown activating
+             when fewer than 7 days remain. Self-maintains through PTO. -->
+        <div class="urgency-badge" id="urgency-badge" hidden>
+          <span class="urgency-badge-icon" aria-hidden="true">⏱</span>
+          <span class="urgency-badge-text">
+            Pricing increases <strong id="urgency-tier-name">July 12</strong><span id="urgency-countdown"></span>
+          </span>
+        </div>
 
         <div class="ticket-grid">
           <div class="ticket-card">
@@ -464,7 +474,66 @@
         });
       }
     })();
-  </script>
+
+    // Urgency badge — auto-updates to show the next ticket-tier deadline.
+    // Shows just the deadline date by default; switches to a live countdown
+    // when fewer than 7 days remain. Auto-flips to the next tier at each
+    // transition date, so it self-maintains through PTO with no manual edits.
+    //
+    // To adjust dates: edit the TIER_DEADLINES array below.
+    (function() {
+      var TIER_DEADLINES = [
+        { name: 'July 12',   date: new Date('2026-07-12T00:00:00') },
+        { name: 'August 9',  date: new Date('2026-08-09T00:00:00') },
+        { name: 'August 22', date: new Date('2026-08-22T00:00:00') }
+      ];
+
+      var badge = document.getElementById('urgency-badge');
+      var tierName = document.getElementById('urgency-tier-name');
+      var countdown = document.getElementById('urgency-countdown');
+      if (!badge || !tierName || !countdown) return;
+
+      function update() {
+        var now = new Date();
+        var nextTier = null;
+        for (var i = 0; i < TIER_DEADLINES.length; i++) {
+          if (TIER_DEADLINES[i].date > now) {
+            nextTier = TIER_DEADLINES[i];
+            break;
+          }
+        }
+        // No future deadlines — event has passed, hide the badge entirely
+        if (!nextTier) {
+          badge.hidden = true;
+          return;
+        }
+
+        tierName.textContent = nextTier.name;
+        var msLeft = nextTier.date - now;
+        var daysLeft = msLeft / (1000 * 60 * 60 * 24);
+
+        // Show live countdown only in the final week
+        if (daysLeft < 7) {
+          var d = Math.floor(daysLeft);
+          var h = Math.floor((msLeft / (1000 * 60 * 60)) % 24);
+          var m = Math.floor((msLeft / (1000 * 60)) % 60);
+          var parts = [];
+          if (d > 0) parts.push(d + (d === 1 ? ' day' : ' days'));
+          if (h > 0 || d > 0) parts.push(h + (h === 1 ? ' hr' : ' hrs'));
+          parts.push(m + (m === 1 ? ' min' : ' mins'));
+          countdown.textContent = ' — ' + parts.join(', ') + ' left';
+          badge.classList.add('urgency-badge--final-week');
+        } else {
+          countdown.textContent = '';
+          badge.classList.remove('urgency-badge--final-week');
+        }
+        badge.hidden = false;
+      }
+
+      update();
+      // Re-tick every minute so countdown stays current during a page session
+      setInterval(update, 60 * 1000);
+    })();
   </script>
 
 </body>
