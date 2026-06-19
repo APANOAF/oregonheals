@@ -1149,21 +1149,30 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--co
 }
 
 /* ============================================================
-   Flatten multi-select field wrappers
-   EveryAction wraps multi-select fields in a <label class="at-select
-   multi-select"> that has a border + padding, creating a "card around
-   a dropdown" double-box look. Targeting .at-select.multi-select
-   specifically preserves single-select fields (Pronouns) which use
-   just .at-select without .multi-select.
+   Hide problematic optional fields from the registration form
+   These multi-select fields (Preferred Language, Gender, Race,
+   Ethnicity) render with a wrapper-card visual that doesn't
+   match the cleaner single-select fields. Pronouns is also
+   hidden — moving demographic + identity questions to a
+   post-registration "attendee profile" survey for cleaner UX
+   and better data quality.
+
+   These fields still exist in EA — this only hides them visually
+   on the embedded form. To restore any of them, delete the
+   matching line(s) in the first block below.
    ============================================================ */
-.oh-ea-form label.at-select.multi-select,
-.oh-ea-form .at-select.multi-select {
-  border: none !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  background-image: none !important;
-  padding: 0 !important;
-  box-shadow: none !important;
+.oh-ea-form label.PreferredLanguages,
+.oh-ea-form label.Pronoun,
+.oh-ea-form label.Gender,
+.oh-ea-form label.Race,
+.oh-ea-form label.Ethnicity {
+  display: none !important;
+}
+
+/* Collapse any form rows that contain ONLY the hidden labels above.
+   Rows that still contain other visible fields remain visible. */
+.oh-ea-form .at-row:not(:has(label:not(.PreferredLanguages):not(.Pronoun):not(.Gender):not(.Race):not(.Ethnicity))) {
+  display: none !important;
 }
 
 /* Community access callout — quiet text link below the ticket cards.
