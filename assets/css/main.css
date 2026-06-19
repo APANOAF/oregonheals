@@ -1149,28 +1149,15 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--co
 }
 
 /* ============================================================
-   Flatten custom-field wrapper "cards"
-   EveryAction wraps some field types (custom fields, survey
-   questions, picklists) in a styled container with a border
-   and padding — creating an unwanted "box within a box" look
-   alongside our cleaner dropdown styling. This removes those
-   outer wrappers while preserving styling on the actual inputs.
+   Flatten multi-select field wrappers
+   EveryAction wraps multi-select fields in a <label class="at-select
+   multi-select"> that has a border + padding, creating a "card around
+   a dropdown" double-box look. Targeting .at-select.multi-select
+   specifically preserves single-select fields (Pronouns) which use
+   just .at-select without .multi-select.
    ============================================================ */
-.oh-ea-form .at-row,
-.oh-ea-form .at-form-row,
-.oh-ea-form .at-survey-question,
-.oh-ea-form .at-survey-row,
-.oh-ea-form .at-select-wrap,
-.oh-ea-form .at-picklist,
-.oh-ea-form .at-question,
-.oh-ea-form .at-custom-field,
-.oh-ea-form [class*="picklist"]:not(select):not(option),
-.oh-ea-form [class*="dropdown-wrap"],
-.oh-ea-form [class*="select-wrap"],
-.oh-ea-form [class*="-question"]:not(legend),
-.oh-ea-form [class*="custom-field"],
-.oh-ea-form [class*="-field-wrap"]:not([class*="ticket"]),
-.oh-ea-form [class*="-card"]:not([class*="ticket"]) {
+.oh-ea-form label.at-select.multi-select,
+.oh-ea-form .at-select.multi-select {
   border: none !important;
   border-radius: 0 !important;
   background: transparent !important;
