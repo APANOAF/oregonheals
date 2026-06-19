@@ -1069,6 +1069,52 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--co
 .section--green .agenda-item > summary:hover { background: rgba(67, 95, 74, 0.06); }
 
 /* ============================================================
+   Urgency badge — appears above ticket cards announcing the next
+   price-change deadline. Switches to a "final week" treatment
+   (sharper coral, subtle pulse) when fewer than 7 days remain.
+   Auto-managed by JS at the bottom of summit/index.html.
+   ============================================================ */
+.urgency-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: fit-content;
+  max-width: 90%;
+  margin: 0 auto 24px;
+  background: rgba(203, 84, 39, 0.1);
+  color: var(--color-coral);
+  border: 1.5px solid rgba(203, 84, 39, 0.35);
+  border-radius: var(--radius-pill);
+  padding: 8px 18px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+.urgency-badge[hidden] { display: none; }
+.urgency-badge-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+.urgency-badge-text strong {
+  font-weight: 700;
+}
+
+/* Final-week treatment — sharper coral, subtle pulse */
+.urgency-badge--final-week {
+  background: var(--color-coral);
+  color: white;
+  border-color: var(--color-coral);
+  animation: urgencyPulse 2.4s ease-in-out infinite;
+}
+@keyframes urgencyPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(203, 84, 39, 0.45); }
+  50%      { box-shadow: 0 0 0 8px rgba(203, 84, 39, 0); }
+}
+
+/* ============================================================
    Ticket cards
    ============================================================ */
 .ticket-grid {
@@ -1158,20 +1204,47 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--co
    and better data quality.
 
    These fields still exist in EA — this only hides them visually
-   on the embedded form. To restore any of them, delete the
-   matching line(s) in the first block below.
+   on the embedded form.
    ============================================================ */
+
+/* Match by standard label class (built-in fields) */
 .oh-ea-form label.PreferredLanguages,
 .oh-ea-form label.Pronoun,
+.oh-ea-form label.Pronouns,
 .oh-ea-form label.Gender,
 .oh-ea-form label.Race,
-.oh-ea-form label.Ethnicity {
+.oh-ea-form label.Ethnicity,
+
+/* Match by class containing the field name (catches custom field variants) */
+.oh-ea-form label[class*="Gender"],
+.oh-ea-form label[class*="Race"]:not([class*="-race-"]),
+.oh-ea-form label[class*="Ethnicity"],
+.oh-ea-form label[class*="Language"],
+.oh-ea-form label[class*="Pronoun"],
+
+/* Match the row container if a row is named after one of these fields */
+.oh-ea-form .at-row.Gender,
+.oh-ea-form .at-row.Race,
+.oh-ea-form .at-row.Ethnicity,
+.oh-ea-form .at-row[class*="Gender"],
+.oh-ea-form .at-row[class*="Race"]:not([class*="-race-"]),
+.oh-ea-form .at-row[class*="Ethnicity"],
+
+/* Match by data-name attribute which EA uses for some custom fields */
+.oh-ea-form [data-name="Gender"],
+.oh-ea-form [data-name="Race"],
+.oh-ea-form [data-name="Ethnicity"],
+.oh-ea-form [data-name="Pronouns"],
+.oh-ea-form [data-name="Pronoun"],
+.oh-ea-form [data-name="PreferredLanguages"],
+.oh-ea-form [data-name*="Gender"],
+.oh-ea-form [data-name*="Race"],
+.oh-ea-form [data-name*="Ethnicity"] {
   display: none !important;
 }
 
-/* Collapse any form rows that contain ONLY the hidden labels above.
-   Rows that still contain other visible fields remain visible. */
-.oh-ea-form .at-row:not(:has(label:not(.PreferredLanguages):not(.Pronoun):not(.Gender):not(.Race):not(.Ethnicity))) {
+/* Collapse rows that contain only hidden labels */
+.oh-ea-form .at-row:not(:has(label:not([class*="PreferredLanguages"]):not([class*="Pronoun"]):not([class*="Gender"]):not([class*="Race"]):not([class*="Ethnicity"]):not([class*="Language"]))) {
   display: none !important;
 }
 
