@@ -1148,6 +1148,37 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--co
   line-height: 1.4;
 }
 
+/* ============================================================
+   Flatten custom-field wrapper "cards"
+   EveryAction wraps some field types (custom fields, survey
+   questions, picklists) in a styled container with a border
+   and padding — creating an unwanted "box within a box" look
+   alongside our cleaner dropdown styling. This removes those
+   outer wrappers while preserving styling on the actual inputs.
+   ============================================================ */
+.oh-ea-form .at-row,
+.oh-ea-form .at-form-row,
+.oh-ea-form .at-survey-question,
+.oh-ea-form .at-survey-row,
+.oh-ea-form .at-select-wrap,
+.oh-ea-form .at-picklist,
+.oh-ea-form .at-question,
+.oh-ea-form .at-custom-field,
+.oh-ea-form [class*="picklist"]:not(select):not(option),
+.oh-ea-form [class*="dropdown-wrap"],
+.oh-ea-form [class*="select-wrap"],
+.oh-ea-form [class*="-question"]:not(legend),
+.oh-ea-form [class*="custom-field"],
+.oh-ea-form [class*="-field-wrap"]:not([class*="ticket"]),
+.oh-ea-form [class*="-card"]:not([class*="ticket"]) {
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
 /* Community access callout — quiet text link below the ticket cards.
    !important on margin and text-align because .section p and other rules
    keep trying to override. Belt and suspenders. */
@@ -1274,4 +1305,3 @@ h1, h2, h3 { font-family: var(--font-display); font-weight: 700; color: var(--co
   color: var(--color-text-faint) !important;
   font-style: italic !important;
 }
-
